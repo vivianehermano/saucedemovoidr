@@ -19,7 +19,7 @@ test.describe('Testes de Produtos', () => {
   });
 
   test('CT04 - Visualizar lista de produtos', async () => {
-    console.log('🧪 Teste: Visualizar produtos');
+    console.log('Teste: Visualizar produtos');
     
     const quantidade = await produtosPage.obterQuantidadeProdutos();
     expect(quantidade).toBe(6);
@@ -28,11 +28,11 @@ test.describe('Testes de Produtos', () => {
     expect(nomes).toContain(produtos.mochila);
     expect(nomes).toContain(produtos.luzBicicleta);
     
-    console.log(`✅ ${quantidade} produtos encontrados`);
+    console.log(`${quantidade} produtos encontrados`);
   });
 
   test('CT05 - Ordenar produtos por preço', async () => {
-    console.log('🧪 Teste: Ordenação por preço');
+    console.log('Teste: Ordenação por preço');
 
     await produtosPage.ordenarProdutos(ordenacao.precoMenor);
     
@@ -47,11 +47,11 @@ test.describe('Testes de Produtos', () => {
     }
     
     expect(ordenado).toBe(true);
-    console.log(`✅ Produtos ordenados: ${precos.join(', ')}`);
+    console.log(`Produtos ordenados: ${precos.join(', ')}`);
   });
 
   test('CT06 - Adicionar produto ao carrinho', async () => {
-    console.log('🧪 Teste: Adicionar ao carrinho');
+    console.log('Teste: Adicionar ao carrinho');
 
     await produtosPage.adicionarProdutoAoCarrinho(produtos.mochila);
     
@@ -60,14 +60,14 @@ test.describe('Testes de Produtos', () => {
   });
 
   test('CT07 - Remover produto do carrinho', async () => {
-    console.log('🧪 Teste: Remover do carrinho');
+    console.log('Teste: Remover do carrinho');
     
     await produtosPage.adicionarProdutoAoCarrinho(produtos.mochila);
     await produtosPage.removerProdutoDoCarrinho(produtos.mochila);
     
     const contador = await produtosPage.obterContadorCarrinho();
     expect(contador).toBe(0);
-    console.log('✅ Produto removido do carrinho');
+    console.log('Produto removido do carrinho');
   });
 });
 
