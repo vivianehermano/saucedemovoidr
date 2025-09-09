@@ -1,0 +1,77 @@
+name: CI/CD Pipeline - Testes E2E
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  testes-completos:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout codigo
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        
+    - name: Instalar dependencias
+      run: npm ci
+      
+    - name: Instalar browsers Playwright
+      run: npx playwright install chromium
+      
+    - name: Executar testes criticos
+      run: npx playwright test --grep "CT01|Login válido"
+      
+    - name: Executar todos os testes
+      if: success()
+      run: npx playwright test
+      
+    - name: Upload relatorios
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: relatorios-completos
+        path: |
+          playwright-report/
+          test-results/
+        retention-days: 7
+
+  publicar-relatorios:
+    runs-on: ubuntu-latest
+    needs: testes-completos
+    if: always()
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    steps:
+    - name: Checkout codigo
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        
+    - name: Instalar dependencias
+      run: npm ci
+      
+    - name: Instalar browsers
+      run: npx playwright install chromium
+      
+    - name: Executar testes e gerar relatorio
+      run: npx playwright test || true
+      
+    - name: Deploy para GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./playwright-report
