@@ -30,6 +30,7 @@ out
 node_modules/
 jspm_packages/
 web_modules/
+visual.spec.js-snapshots/
 
 # TypeScript
 *.tsbuildinfo
@@ -43,6 +44,7 @@ web_modules/
 .parcel-cache
 .svelte-kit/
 **/.vitepress/cache
+
 
 # Output of 'npm pack'
 *.tgz
