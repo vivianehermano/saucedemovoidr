@@ -33,18 +33,3 @@ npx playwright test --debug
 
 # Ver relatório
 npx playwright show-report
-
-## Tecnologias
-
-- **Playwright** - Framework de automação
-- **JavaScript** - Linguagem de programação
-- **Page Object Model** - Padrão de organização
-- **GitHub Actions** - CI/CD
-
-## Padrões Utilizados
-
-- Page Object Model para organização do código
-- Dados de teste centralizados
-- Métodos reutilizáveis na classe base
-- Nomenclatura clara e descritiva
-- Estrutura de pastas organizada
