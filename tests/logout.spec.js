@@ -1,4 +1,3 @@
-// tests/logout.spec.js - NOVO ARQUIVO (criar este arquivo)
 import { test, expect } from '@playwright/test';
 import LoginPage from '../pages/LoginPage.js';
 import ProdutosPage from '../pages/ProdutosPage.js';
