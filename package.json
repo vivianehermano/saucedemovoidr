@@ -2,23 +2,22 @@
   "name": "sauce-demo-automation",
   "version": "2.0.0",
   "type": "module",
-  "description": "Automação E2E Profissional com Playwright",
+  "description": "Automação E2E Profissional com Playwright + Quality Gates",
   "scripts": {
+    "prepare": "husky",
     "test": "playwright test",
+    "test:headed": "playwright test --headed",
     "test:chrome": "playwright test --project=chrome",
     "test:firefox": "playwright test --project=firefox",
     "test:debug": "playwright test --debug",
     "test:ui": "playwright test --ui",
-    "relatorio": "playwright show-report",
     "test:smoke": "playwright test --grep @smoke",
-    "test:completo": "playwright test --grep @completo",
-    "prepare": "husky",
-    "lint:fix": "eslint tests/ pages/ utils/ --ext .js --fix",
-    "format:check": "prettier --check \"**/*.{js,json,md}\"",
-    "test:pre-commit": "playwright test --grep @critical",
-    "validate": "npm run lint && npm run format:check && npm run test:smoke",
+    "test:critical": "playwright test --grep 'CT01|Login válido'",
+    "relatorio": "playwright show-report",
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "devDependencies": {
     "@eslint/js": "^9.35.0",
@@ -36,20 +35,10 @@
   "lint-staged": {
     "*.js": [
       "eslint --fix",
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ],
     "*.{json,md}": [
       "prettier --write"
-    ],
-    "tests/**/*.spec.js": [
-      "echo 'Validando sintaxe dos testes...'",
-      "node -c"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run validate"
-    }
   }
 }
