@@ -3,7 +3,7 @@ import BasePage from './BasePage.js';
 class CheckoutPage extends BasePage {
   constructor(page) {
     super(page);
-    
+
     this.tituloPagina = '.title';
     this.campoNome = '[data-test="firstName"]';
     this.campoSobrenome = '[data-test="lastName"]';
@@ -59,13 +59,11 @@ class CheckoutPage extends BasePage {
     return '';
   }
 
-
   async obterSubtotal() {
     const texto = await this.obterTexto(this.subtotal);
     const match = texto.match(/\$(\d+\.?\d*)/);
     return match ? parseFloat(match[1]) : 0;
   }
-
 
   async obterTaxa() {
     const texto = await this.obterTexto(this.taxa);
@@ -99,7 +97,7 @@ class CheckoutPage extends BasePage {
       await this.finalizar();
       return await this.estaNaPaginaConclusao();
     }
-    
+
     return false;
   }
 
@@ -107,11 +105,11 @@ class CheckoutPage extends BasePage {
     const subtotal = await this.obterSubtotal();
     const taxa = await this.obterTaxa();
     const total = await this.obterTotal();
-    
+
     const totalCalculado = subtotal + taxa;
     const diferenca = Math.abs(total - totalCalculado);
-    
-    return diferenca < 0.01; 
+
+    return diferenca < 0.01;
   }
 }
 

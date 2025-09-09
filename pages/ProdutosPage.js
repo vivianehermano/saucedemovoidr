@@ -3,7 +3,7 @@ import BasePage from './BasePage.js';
 class ProdutosPage extends BasePage {
   constructor(page) {
     super(page);
-    
+
     this.tituloPagina = '.title';
     this.listaProdutos = '.inventory_item';
     this.nomeProduto = '.inventory_item_name';
@@ -32,17 +32,17 @@ class ProdutosPage extends BasePage {
 
   async obterPrecosProdutos() {
     const textosPrecos = await this.obterTodosTextos(this.precoProduto);
-    return textosPrecos.map(preco => parseFloat(preco.replace('$', '')));
+    return textosPrecos.map((preco) => parseFloat(preco.replace('$', '')));
   }
 
   async ordenarProdutos(opcao) {
     await this.page.selectOption(this.filtroOrdenacao, opcao);
-    await this.aguardar(1000); 
+    await this.aguardar(1000);
   }
 
   async adicionarProdutoAoCarrinho(nomeProduto) {
     const produtos = await this.page.locator(this.listaProdutos).all();
-    
+
     for (const produto of produtos) {
       const nome = await produto.locator(this.nomeProduto).textContent();
       if (nome === nomeProduto) {
@@ -54,7 +54,7 @@ class ProdutosPage extends BasePage {
 
   async removerProdutoDoCarrinho(nomeProduto) {
     const produtos = await this.page.locator(this.listaProdutos).all();
-    
+
     for (const produto of produtos) {
       const nome = await produto.locator(this.nomeProduto).textContent();
       if (nome === nomeProduto) {
@@ -84,7 +84,7 @@ class ProdutosPage extends BasePage {
 
   async produtoTemBotaoAdicionar(nomeProduto) {
     const produtos = await this.page.locator(this.listaProdutos).all();
-    
+
     for (const produto of produtos) {
       const nome = await produto.locator(this.nomeProduto).textContent();
       if (nome === nomeProduto) {

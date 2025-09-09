@@ -1,4 +1,3 @@
-
 import { test, expect } from '@playwright/test';
 import LoginPage from '../pages/LoginPage.js';
 import ProdutosPage from '../pages/ProdutosPage.js';
@@ -17,7 +16,7 @@ test.describe('Testes do Carrinho', () => {
 
     await loginPage.navegarParaLogin();
     await loginPage.fazerLogin(usuarios.valido.nome, usuarios.valido.senha);
-    
+
     const estaNaPagina = await produtosPage.estaNaPaginaProdutos();
     expect(estaNaPagina).toBe(true);
   });
@@ -27,22 +26,24 @@ test.describe('Testes do Carrinho', () => {
 
     await produtosPage.adicionarProdutoAoCarrinho(produtos.mochila);
     await produtosPage.adicionarProdutoAoCarrinho(produtos.luzBicicleta);
-    
+
     await produtosPage.irParaCarrinho();
     await expect(page).toHaveURL(/.*cart/);
-    
+
     const estaNaPageCarrinho = await carrinhoPage.estaNaPaginaCarrinho();
     expect(estaNaPageCarrinho).toBe(true);
-    
+
     const quantidade = await carrinhoPage.obterQuantidadeItens();
     expect(quantidade).toBe(2);
-    
+
     const itemMochila = await carrinhoPage.itemEstaNoCarrinho(produtos.mochila);
-    const itemLuz = await carrinhoPage.itemEstaNoCarrinho(produtos.luzBicicleta);
-    
+    const itemLuz = await carrinhoPage.itemEstaNoCarrinho(
+      produtos.luzBicicleta
+    );
+
     expect(itemMochila).toBe(true);
     expect(itemLuz).toBe(true);
-    
+
     console.log('Itens verificados no carrinho');
   });
 
@@ -51,31 +52,31 @@ test.describe('Testes do Carrinho', () => {
 
     await produtosPage.adicionarProdutoAoCarrinho(produtos.mochila);
     await produtosPage.irParaCarrinho();
-    
+
     let quantidade = await carrinhoPage.obterQuantidadeItens();
     expect(quantidade).toBe(1);
- 
+
     await carrinhoPage.removerItem(produtos.mochila);
 
     const carrinhoVazio = await carrinhoPage.carrinhoEstaVazio();
     expect(carrinhoVazio).toBe(true);
-    
+
     console.log('Item removido do carrinho');
   });
 
   test('CT10 - Continuar comprando do carrinho', async ({ page }) => {
     console.log('Teste: Continuar comprando');
-    
+
     await produtosPage.adicionarProdutoAoCarrinho(produtos.mochila);
     await produtosPage.irParaCarrinho();
-    
+
     await carrinhoPage.continuarComprando();
-    
+
     await expect(page).toHaveURL(/.*inventory/);
-    
+
     const voltouParaProdutos = await produtosPage.estaNaPaginaProdutos();
     expect(voltouParaProdutos).toBe(true);
-    
+
     console.log('Retornou para página de produtos');
   });
 });

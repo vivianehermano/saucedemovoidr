@@ -45,21 +45,21 @@ export class Logger {
       level: level.toUpperCase(),
       context: this.contexto,
       message: mensagem,
-      data: dados
+      data: dados,
     };
-    
+
     console.log(JSON.stringify(logEntry, null, 2));
   }
 
   tempo(nome) {
     const inicio = Date.now();
-    
+
     return {
       fim: () => {
         const duracao = Date.now() - inicio;
         this.info(`Tempo de execução: ${nome}`, { duracao: `${duracao}ms` });
         return duracao;
-      }
+      },
     };
   }
 
@@ -88,5 +88,5 @@ export const log = {
   info: Logger.info,
   error: Logger.error,
   warn: Logger.warn,
-  debug: Logger.debug
+  debug: Logger.debug,
 };

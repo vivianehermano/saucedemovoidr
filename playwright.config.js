@@ -7,47 +7,47 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 1,
   workers: process.env.CI ? 2 : 4,
-  
+
   reporter: [
     ['html', { open: 'never' }],
     ['json', { outputFile: 'relatorios/resultados.json' }],
     ['list'],
-    ['github']
+    ['github'],
   ],
-  
+
   use: {
     baseURL: 'https://www.saucedemo.com',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
     trace: 'on-first-retry',
-    
+
     actionTimeout: 10000,
     navigationTimeout: 30000,
   },
-  
+
   projects: [
     {
       name: 'chrome',
-      use: { 
+      use: {
         channel: 'chrome',
         viewport: { width: 1920, height: 1080 },
-        userAgent: 'Teste-Automatizado-Chrome'
-      }
+        userAgent: 'Teste-Automatizado-Chrome',
+      },
     },
     {
       name: 'firefox',
-      use: { 
+      use: {
         browserName: 'firefox',
-        viewport: { width: 1920, height: 1080 }
-      }
+        viewport: { width: 1920, height: 1080 },
+      },
     },
     {
       name: 'mobile',
       use: {
         browserName: 'chromium',
         viewport: { width: 390, height: 844 },
-        userAgent: 'Teste-Mobile-iPhone'
-      }
-    }
-  ]
+        userAgent: 'Teste-Mobile-iPhone',
+      },
+    },
+  ],
 });

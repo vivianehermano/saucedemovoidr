@@ -3,7 +3,7 @@ import BasePage from './BasePage.js';
 class LoginPage extends BasePage {
   constructor(page) {
     super(page);
-    
+
     this.campoUsuario = '#user-name';
     this.campoSenha = '#password';
     this.botaoLogin = '#login-button';

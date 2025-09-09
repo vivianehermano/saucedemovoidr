@@ -42,7 +42,10 @@ test.describe('Testes de Login', () => {
   test('CT03 - Login com usuário bloqueado', async () => {
     console.log('Teste: Usuário bloqueado');
 
-    await loginPage.fazerLogin(usuarios.bloqueado.nome, usuarios.bloqueado.senha);
+    await loginPage.fazerLogin(
+      usuarios.bloqueado.nome,
+      usuarios.bloqueado.senha
+    );
 
     const mensagem = await loginPage.obterMensagemErro();
     expect(mensagem).toContain(mensagensErro.bloqueado);
@@ -93,7 +96,7 @@ test.describe('Testes de Login', () => {
 
   test('CT07 - Tentativa de login sem usuário e sem senha (vazio)', async () => {
     console.log('Teste: Tentativa de login vazio');
- 
+
     await loginPage.fazerLogin('', '');
     const temErro = await loginPage.temMensagemErro();
     expect(temErro).toBe(true);

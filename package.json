@@ -11,9 +11,45 @@
     "test:ui": "playwright test --ui",
     "relatorio": "playwright show-report",
     "test:smoke": "playwright test --grep @smoke",
-    "test:completo": "playwright test --grep @completo"
+    "test:completo": "playwright test --grep @completo",
+    "prepare": "husky",
+    "lint:fix": "eslint tests/ pages/ utils/ --ext .js --fix",
+    "format:check": "prettier --check \"**/*.{js,json,md}\"",
+    "test:pre-commit": "playwright test --grep @critical",
+    "validate": "npm run lint && npm run format:check && npm run test:smoke",
+    "lint": "eslint .",
+    "format": "prettier --write ."
   },
   "devDependencies": {
-    "@playwright/test": "^1.55.0"
+    "@eslint/js": "^9.35.0",
+    "@playwright/test": "^1.55.0",
+    "eslint": "^9.35.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-playwright": "^2.2.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.6",
+    "prettier": "^3.6.2"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ],
+    "tests/**/*.spec.js": [
+      "echo 'Validando sintaxe dos testes...'",
+      "node -c"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run validate"
+    }
   }
 }

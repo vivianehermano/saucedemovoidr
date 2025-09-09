@@ -3,7 +3,7 @@ import BasePage from './BasePage.js';
 class CarrinhoPage extends BasePage {
   constructor(page) {
     super(page);
-    
+
     this.tituloPagina = '.title';
     this.itensCarrinho = '.cart_item';
     this.nomeItem = '.inventory_item_name';
@@ -29,12 +29,12 @@ class CarrinhoPage extends BasePage {
 
   async obterPrecosItens() {
     const textosPrecos = await this.obterTodosTextos(this.precoItem);
-    return textosPrecos.map(preco => parseFloat(preco.replace('$', '')));
+    return textosPrecos.map((preco) => parseFloat(preco.replace('$', '')));
   }
 
   async removerItem(nomeItem) {
     const itens = await this.page.locator(this.itensCarrinho).all();
-    
+
     for (const item of itens) {
       const nome = await item.locator(this.nomeItem).textContent();
       if (nome === nomeItem) {
