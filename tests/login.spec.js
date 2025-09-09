@@ -15,11 +15,10 @@ test.describe('Testes de Login', () => {
 
   test('CT01 - Login com credenciais válidas', async ({ page }) => {
     console.log('Teste: Login válido');
-    
+
     await loginPage.fazerLogin(usuarios.valido.nome, usuarios.valido.senha);
 
     await expect(page).toHaveURL(/.*inventory/);
-
     const estaNaPagina = await produtosPage.estaNaPaginaProdutos();
     expect(estaNaPagina).toBe(true);
 
@@ -35,7 +34,7 @@ test.describe('Testes de Login', () => {
     expect(temErro).toBe(true);
 
     const mensagem = await loginPage.obterMensagemErro();
-    expect(mensagem).toContain('do not match any user');
+    expect(mensagem).toContain(mensagensErro.invalido);
 
     console.log('Mensagem de erro exibida corretamente');
   });
@@ -46,7 +45,7 @@ test.describe('Testes de Login', () => {
     await loginPage.fazerLogin(usuarios.bloqueado.nome, usuarios.bloqueado.senha);
 
     const mensagem = await loginPage.obterMensagemErro();
-    expect(mensagem).toContain('locked out');
+    expect(mensagem).toContain(mensagensErro.bloqueado);
 
     console.log('Usuário bloqueado tratado corretamente');
   });
@@ -60,7 +59,7 @@ test.describe('Testes de Login', () => {
     expect(temErro).toBe(true);
 
     const mensagem = await loginPage.obterMensagemErro();
-    expect(mensagem).toContain('Username is required');
+    expect(mensagem).toContain(mensagensErro.semUsuario);
 
     console.log('Mensagem de erro exibida corretamente');
   });
@@ -74,7 +73,7 @@ test.describe('Testes de Login', () => {
     expect(temErro).toBe(true);
 
     const mensagem = await loginPage.obterMensagemErro();
-    expect(mensagem).toContain('Password is required');
+    expect(mensagem).toContain(mensagensErro.semSenha);
 
     console.log('Mensagem de erro exibida corretamente');
   });
@@ -86,10 +85,18 @@ test.describe('Testes de Login', () => {
 
     const temErro = await loginPage.temMensagemErro();
     expect(temErro).toBe(true);
-
     const mensagem = await loginPage.obterMensagemErro();
-    expect(mensagem).toContain('Username is required');
+    expect(mensagem).toContain(mensagensErro.semUsuario);
 
     console.log('Mensagem de erro exibida corretamente');
+  });
+
+  test('CT07 - Tentativa de login sem usuário e sem senha (vazio)', async () => {
+    console.log('Teste: Tentativa de login vazio');
+ 
+    await loginPage.fazerLogin('', '');
+    const temErro = await loginPage.temMensagemErro();
+    expect(temErro).toBe(true);
+    console.log('Tentativa de login executada');
   });
 });
