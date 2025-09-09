@@ -55,32 +55,6 @@ export default class BasePage {
     return textos;
   }
 
-  obterUrlAtual() {
-    return this.page.url();
-  }
-
-  async aguardar(ms) {
-    await this.page.waitForTimeout(ms);
-  }
-
-
-  async contarElementos(seletor) {
-    return await this.page.locator(seletor).count();
-  }
-
-  async obterTodosTextos(seletor) {
-    const elementos = await this.page.locator(seletor).all();
-    const textos = [];
-    for (const elemento of elementos) {
-      textos.push(await elemento.textContent());
-    }
-    return textos;
-  }
-
-  obterUrlAtual() {
-    return this.page.url();
-  }
-
   async aguardar(ms) {
     await this.page.waitForTimeout(ms);
   }
