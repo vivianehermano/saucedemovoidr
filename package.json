@@ -1,0 +1,38 @@
+{
+  "name": "sauce-demo-automation-simples",
+  "version": "1.0.0",
+  "description": "Automação simplificada para Sauce Demo com Playwright",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug"
+  },
+  "keywords": [
+    "playwright",
+    "automation",
+    "saucedemo",
+    "javascript"
+  ],
+  "author": "Viviane Hermano",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.55.0"
+  },
+  "main": "playwright.config.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "playwright": "^1.55.0",
+    "playwright-core": "^1.55.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vivianehermano/saucedemovoidr.git"
+  },
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/vivianehermano/saucedemovoidr/issues"
+  },
+  "homepage": "https://github.com/vivianehermano/saucedemovoidr#readme"
+}
