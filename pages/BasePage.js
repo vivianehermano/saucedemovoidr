@@ -1,10 +1,15 @@
+import { Logger } from '../utils/Logger.js';
+
 export default class BasePage {
   constructor(page) {
     this.page = page;
+    this.timeout = 30000;
+    this.retries = 3;
   }
 
   async irPara(url) {
     await this.page.goto(url);
+    Logger.info('Navegou para URL', { url });
   }
 
   async aguardarElemento(seletor) {
@@ -14,11 +19,13 @@ export default class BasePage {
   async clicar(seletor) {
     await this.aguardarElemento(seletor);
     await this.page.click(seletor);
+    Logger.info('Elemento clicado', { seletor });
   }
 
   async preencher(seletor, texto) {
     await this.aguardarElemento(seletor);
     await this.page.fill(seletor, texto);
+    Logger.info('Campo preenchido', { seletor, texto });
   }
 
   async obterTexto(seletor) {
@@ -34,6 +41,28 @@ export default class BasePage {
       return false;
     }
   }
+
+  async contarElementos(seletor) {
+    return await this.page.locator(seletor).count();
+  }
+
+  async obterTodosTextos(seletor) {
+    const elementos = await this.page.locator(seletor).all();
+    const textos = [];
+    for (const elemento of elementos) {
+      textos.push(await elemento.textContent());
+    }
+    return textos;
+  }
+
+  obterUrlAtual() {
+    return this.page.url();
+  }
+
+  async aguardar(ms) {
+    await this.page.waitForTimeout(ms);
+  }
+
 
   async contarElementos(seletor) {
     return await this.page.locator(seletor).count();
