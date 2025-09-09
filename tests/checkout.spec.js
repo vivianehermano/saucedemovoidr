@@ -24,7 +24,7 @@ test.describe('Testes de Checkout', () => {
   });
 
   test('CT11 - Checkout completo com sucesso', async ({ page }) => {
-    console.log('🧪 Teste: Checkout completo');
+    console.log('Teste: Checkout completo');
     
     await carrinhoPage.irParaCheckout();
     await expect(page).toHaveURL(/.*checkout-step-one/);
@@ -38,11 +38,11 @@ test.describe('Testes de Checkout', () => {
     const mensagem = await checkoutPage.obterMensagemSucesso();
     expect(mensagem).toContain('Thank you for your order!');
     
-    console.log('✅ Checkout realizado com sucesso');
+    console.log('Checkout realizado com sucesso');
   });
 
   test('CT12 - Validar campos obrigatórios', async () => {
-    console.log('🧪 Teste: Campos obrigatórios');
+    console.log('Teste: Campos obrigatórios');
 
     await carrinhoPage.irParaCheckout();
     
@@ -51,11 +51,11 @@ test.describe('Testes de Checkout', () => {
     const mensagemErro = await checkoutPage.obterMensagemErro();
     expect(mensagemErro).toContain('First Name is required');
     
-    console.log('✅ Validação de campos obrigatórios funcionando');
+    console.log('Validação de campos obrigatórios funcionando');
   });
 
   test('CT13 - Cancelar processo de checkout', async ({ page }) => {
-    console.log('🧪 Teste: Cancelar checkout');
+    console.log('Teste: Cancelar checkout');
 
     await carrinhoPage.irParaCheckout();
     
@@ -66,11 +66,11 @@ test.describe('Testes de Checkout', () => {
     const voltouParaCarrinho = await carrinhoPage.estaNaPaginaCarrinho();
     expect(voltouParaCarrinho).toBe(true);
     
-    console.log('✅ Checkout cancelado com sucesso');
+    console.log('Checkout cancelado com sucesso');
   });
 
   test('CT14 - Verificar cálculos do checkout', async () => {
-    console.log('🧪 Teste: Cálculos do checkout');
+    console.log('Teste: Cálculos do checkout');
 
     await carrinhoPage.continuarComprando();
     await produtosPage.adicionarProdutoAoCarrinho(produtos.jaqueta);
@@ -94,11 +94,11 @@ test.describe('Testes de Checkout', () => {
     const taxa = await checkoutPage.obterTaxa();
     const total = await checkoutPage.obterTotal();
     
-    console.log(`✅ Cálculos corretos - Subtotal: $${subtotal}, Taxa: $${taxa}, Total: $${total}`);
+    console.log(`Cálculos corretos - Subtotal: $${subtotal}, Taxa: $${taxa}, Total: $${total}`);
   });
 
   test('CT15 - Finalizar compra e voltar ao início', async ({ page }) => {
-    console.log('🧪 Teste: Finalizar e voltar');
+    console.log('Teste: Finalizar e voltar');
  
     await carrinhoPage.irParaCheckout();
     const sucesso = await checkoutPage.processarCheckoutCompleto(dadosCheckout.valido);
@@ -113,6 +113,6 @@ test.describe('Testes de Checkout', () => {
     const contador = await produtosPage.obterContadorCarrinho();
     expect(contador).toBe(0);
     
-    console.log('✅ Compra finalizada e retornou ao início');
+    console.log('Compra finalizada e retornou ao início');
   });
 });
