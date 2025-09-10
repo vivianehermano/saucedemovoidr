@@ -29,6 +29,7 @@ export default defineConfig({
     {
       name: 'chrome',
       use: {
+        browserName: 'chromium',
         channel: 'chrome',
         viewport: { width: 1920, height: 1080 },
         userAgent: 'Teste-Automatizado-Chrome',
@@ -39,14 +40,26 @@ export default defineConfig({
       use: {
         browserName: 'firefox',
         viewport: { width: 1920, height: 1080 },
+        userAgent: 'Teste-Automatizado-Firefox',
       },
     },
     {
       name: 'mobile',
       use: {
-        browserName: 'chrome',
+        browserName: 'chromium',
         viewport: { width: 390, height: 844 },
-        userAgent: 'Teste-Mobile-iPhone',
+        userAgent:
+          'Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15',
+        isMobile: true,
+        hasTouch: true,
+      },
+    },
+    {
+      name: 'webkit',
+      use: {
+        browserName: 'webkit',
+        viewport: { width: 1920, height: 1080 },
+        userAgent: 'Teste-Automatizado-Safari',
       },
     },
   ],
