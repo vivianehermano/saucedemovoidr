@@ -33,26 +33,26 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     needs: health-check
-
+    
     strategy:
       fail-fast: false
       matrix:
         test-suite:
-          - name: 'smoke'
-            command: 'test:smoke'
-            browser: 'chromium'
-          - name: 'critico'
-            command: 'test:critico'
-            browser: 'chromium'
-          - name: 'seguranca'
-            command: 'test:seguranca'
-            browser: 'chromium'
-          - name: 'funcional'
-            command: 'test:funcional'
-            browser: 'firefox'
-          - name: 'regressao'
-            command: 'test:regressao'
-            browser: 'chromium'
+          - name: "smoke"
+            command: "test:smoke"
+            browser: "chromium"
+          - name: "critico" 
+            command: "test:critico"
+            browser: "chromium"
+          - name: "seguranca"
+            command: "test:seguranca" 
+            browser: "chromium"
+          - name: "funcional"
+            command: "test:funcional"
+            browser: "firefox"
+          - name: "regressao"
+            command: "test:regressao"
+            browser: "chromium"
 
     steps:
       - name: 📥 Checkout do código
@@ -125,7 +125,7 @@ jobs:
     timeout-minutes: 45
     needs: health-check
     if: github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/main'
-
+    
     steps:
       - name: 📥 Checkout do código
         uses: actions/checkout@v4
@@ -181,7 +181,7 @@ jobs:
     timeout-minutes: 15
     needs: health-check
     if: github.event_name == 'pull_request'
-
+    
     steps:
       - name: 📥 Checkout do código
         uses: actions/checkout@v4
