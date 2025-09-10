@@ -2,7 +2,7 @@
   "name": "sauce-demo-automation",
   "version": "2.1.0",
   "type": "module",
-  "description": "Automação E2E Profissional com Playwright + Husky",
+  "description": "Automação E2E Profissional com Playwright + GitHub Actions",
   "scripts": {
     "prepare": "husky",
     "test": "playwright test",
@@ -26,14 +26,24 @@
     "test:full": "npm run test:regressao",
     "test:security": "npm run test:seguranca -- --project=chrome",
     "test:ci": "npm run test:critico && npm run test:smoke && npm run test:seguranca",
+    "test:ci:parallel": "playwright test --grep \"@critico|@smoke|@seguranca\"",
+    "test:health": "curl -f -s https://www.saucedemo.com || exit 1",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "relatorio": "playwright show-report",
-    "clean": "rm -rf test-results playwright-report",
-    "setup": "npm install && npx playwright install",
-    "validate": "npm run lint && npm run format:check && npm run test:smoke"
+    "clean": "rimraf test-results playwright-report relatorios screenshots videos",
+    "clean:cache": "rimraf node_modules/.cache playwright/.cache",
+    "setup": "npm install && npx playwright install --with-deps",
+    "setup:ci": "npm ci && npx playwright install --with-deps",
+    "validate": "npm run lint && npm run format:check && npm run test:smoke",
+    "validate:full": "npm run lint && npm run format:check && npm run test:ci",
+    "pretest": "npm run test:health",
+    "posttest": "npm run relatorio",
+    "browsers:install": "npx playwright install --with-deps",
+    "browsers:list": "npx playwright list",
+    "env:check": "node -e \"console.log('Node:', process.version); console.log('NPM:', process.env.npm_version || 'N/A'); console.log('CI:', !!process.env.CI);\""
   },
   "devDependencies": {
     "@eslint/js": "^9.35.0",
@@ -47,16 +57,34 @@
     "rimraf": "^6.0.1"
   },
   "dependencies": {
-    "dotenv": "^16.3.1",
-    "python": "^0.0.4"
+    "dotenv": "^16.3.1"
   },
   "lint-staged": {
     "*.js": [
       "eslint --fix",
       "prettier --write"
     ],
-    "*.{json,md}": [
+    "*.{json,md,yml,yaml}": [
       "prettier --write"
     ]
-  }
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seu-usuario/sauce-demo-automation.git"
+  },
+  "keywords": [
+    "playwright",
+    "e2e",
+    "automation",
+    "testing",
+    "ci-cd",
+    "github-actions",
+    "sauce-demo"
+  ],
+  "author": "Seu Nome",
+  "license": "MIT"
 }

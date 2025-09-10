@@ -44,7 +44,7 @@ export default defineConfig({
     {
       name: 'mobile',
       use: {
-        browserName: 'chromium',
+        browserName: 'chrome',
         viewport: { width: 390, height: 844 },
         userAgent: 'Teste-Mobile-iPhone',
       },
