@@ -17,13 +17,13 @@ env:
 jobs:
   # Job para verificar se o site está acessível
   health-check:
-    name: 🏥 Verificar Disponibilidade do Site
+    name: Verificar Disponibilidade do Site
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - name: Verificar se saucedemo.com está acessível
         run: |
-          echo " Verificando se o site está acessível..."
+          echo "Verificando se o site está acessível..."
           curl -f -s -o /dev/null https://www.saucedemo.com || exit 1
           echo "Site acessível!"
 
@@ -75,14 +75,6 @@ jobs:
       - name: Instalar dependências
         run: npm ci
 
-      - name: Cache dos browsers Playwright
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-playwright-
-
       - name: Instalar browsers Playwright
         run: npx playwright install --with-deps
 
@@ -96,7 +88,6 @@ jobs:
         run: npm run ${{ matrix.test-suite.command }} -- --project=${{ matrix.test-suite.browser }}
         env:
           CI: true
-          PLAYWRIGHT_BROWSERS_PATH: ~/.cache/ms-playwright
 
       - name: Upload dos resultados - ${{ matrix.test-suite.name }}
         uses: actions/upload-artifact@v4
@@ -145,12 +136,6 @@ jobs:
       - name: Instalar dependências
         run: npm ci
 
-      - name: Cache dos browsers Playwright
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json') }}
-
       - name: Instalar browsers Playwright (todos)
         run: npx playwright install --with-deps
 
@@ -161,7 +146,6 @@ jobs:
         run: npm run test:ci
         env:
           CI: true
-          PLAYWRIGHT_BROWSERS_PATH: ~/.cache/ms-playwright
 
       - name: Upload dos resultados completos
         uses: actions/upload-artifact@v4
@@ -176,7 +160,7 @@ jobs:
 
   # Job para validação rápida em PRs
   quick-validation:
-    name: ⚡ Validação Rápida
+    name: Validação Rápida
     runs-on: ubuntu-latest
     timeout-minutes: 15
     needs: health-check
@@ -223,7 +207,10 @@ jobs:
     steps:
       - name: Notificar falha
         run: |
-          echo " Alguns testes falharam!"
+          echo "Alguns testes falharam!"
           echo "Verifique os artefatos e logs para mais detalhes."
           echo "Run ID: ${{ github.run_id }}"
           echo "Commit: ${{ github.sha }}"
+          echo "Branch: ${{ github.ref }}"
+          echo "Event: ${{ github.event_name }}"
+          echo "Repository: ${{ github.repository }}"
