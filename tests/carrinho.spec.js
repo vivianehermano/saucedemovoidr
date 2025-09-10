@@ -21,7 +21,9 @@ test.describe('Testes do Carrinho', () => {
     expect(estaNaPagina).toBe(true);
   });
 
-  test('CT08 - Verificar itens no carrinho', async ({ page }) => {
+  test('CT08 - Verificar itens no carrinho @critico @smoke', async ({
+    page,
+  }) => {
     console.log('Teste: Verificar carrinho');
 
     await produtosPage.adicionarProdutoAoCarrinho(produtos.mochila);
@@ -47,7 +49,7 @@ test.describe('Testes do Carrinho', () => {
     console.log('Itens verificados no carrinho');
   });
 
-  test('CT09 - Remover item do carrinho', async () => {
+  test('CT09 - Remover item do carrinho @funcional @regressao', async () => {
     console.log('Teste: Remover item do carrinho');
 
     await produtosPage.adicionarProdutoAoCarrinho(produtos.mochila);
@@ -64,7 +66,9 @@ test.describe('Testes do Carrinho', () => {
     console.log('Item removido do carrinho');
   });
 
-  test('CT10 - Continuar comprando do carrinho', async ({ page }) => {
+  test('CT10 - Continuar comprando do carrinho @funcional @smoke', async ({
+    page,
+  }) => {
     console.log('Teste: Continuar comprando');
 
     await produtosPage.adicionarProdutoAoCarrinho(produtos.mochila);

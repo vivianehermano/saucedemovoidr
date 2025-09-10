@@ -1,23 +1,39 @@
 {
   "name": "sauce-demo-automation",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "type": "module",
-  "description": "Automação E2E Profissional com Playwright + Quality Gates",
+  "description": "Automação E2E Profissional com Playwright + Husky",
   "scripts": {
     "prepare": "husky",
     "test": "playwright test",
     "test:headed": "playwright test --headed",
-    "test:chrome": "playwright test --project=chrome",
-    "test:firefox": "playwright test --project=firefox",
     "test:debug": "playwright test --debug",
     "test:ui": "playwright test --ui",
+    "test:critico": "playwright test --grep @critico",
     "test:smoke": "playwright test --grep @smoke",
-    "test:critical": "playwright test --grep 'CT01|Login válido'",
-    "relatorio": "playwright show-report",
+    "test:regressao": "playwright test --grep @regressao",
+    "test:seguranca": "playwright test --grep @seguranca",
+    "test:validacao": "playwright test --grep @validacao",
+    "test:funcional": "playwright test --grep @funcional",
+    "test:completo": "playwright test --grep @completo",
+    "test:chrome": "playwright test --project=chrome",
+    "test:firefox": "playwright test --project=firefox",
+    "test:mobile": "playwright test --project=mobile",
+    "test:critico:chrome": "playwright test --grep @critico --project=chrome",
+    "test:smoke:firefox": "playwright test --grep @smoke --project=firefox",
+    "test:seguranca:chrome": "playwright test --grep @seguranca --project=chrome",
+    "test:quick": "npm run test:critico -- --project=chrome",
+    "test:full": "npm run test:regressao",
+    "test:security": "npm run test:seguranca -- --project=chrome",
+    "test:ci": "npm run test:critico && npm run test:smoke && npm run test:seguranca",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "relatorio": "playwright show-report",
+    "clean": "rm -rf test-results playwright-report",
+    "setup": "npm install && npx playwright install",
+    "validate": "npm run lint && npm run format:check && npm run test:smoke"
   },
   "devDependencies": {
     "@eslint/js": "^9.35.0",
@@ -27,10 +43,12 @@
     "eslint-plugin-playwright": "^2.2.2",
     "husky": "^9.1.7",
     "lint-staged": "^16.1.6",
-    "prettier": "^3.6.2"
+    "prettier": "^3.6.2",
+    "rimraf": "^6.0.1"
   },
   "dependencies": {
-    "dotenv": "^16.3.1"
+    "dotenv": "^16.3.1",
+    "python": "^0.0.4"
   },
   "lint-staged": {
     "*.js": [

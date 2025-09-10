@@ -23,7 +23,9 @@ test.describe('Testes de Checkout', () => {
     await produtosPage.irParaCarrinho();
   });
 
-  test('CT11 - Checkout completo com sucesso', async ({ page }) => {
+  test('CT11 - Checkout completo com sucesso @critico @smoke', async ({
+    page,
+  }) => {
     console.log('Teste: Checkout completo');
 
     await carrinhoPage.irParaCheckout();
@@ -43,7 +45,7 @@ test.describe('Testes de Checkout', () => {
     console.log('Checkout realizado com sucesso');
   });
 
-  test('CT12 - Validar campos obrigatórios', async () => {
+  test('CT12 - Validar campos obrigatórios @validacao @critico', async () => {
     console.log('Teste: Campos obrigatórios');
 
     await carrinhoPage.irParaCheckout();
@@ -56,7 +58,9 @@ test.describe('Testes de Checkout', () => {
     console.log('Validação de campos obrigatórios funcionando');
   });
 
-  test('CT13 - Cancelar processo de checkout', async ({ page }) => {
+  test('CT13 - Cancelar processo de checkout @funcional @regressao', async ({
+    page,
+  }) => {
     console.log('Teste: Cancelar checkout');
 
     await carrinhoPage.irParaCheckout();
@@ -71,7 +75,7 @@ test.describe('Testes de Checkout', () => {
     console.log('Checkout cancelado com sucesso');
   });
 
-  test('CT14 - Verificar cálculos do checkout', async () => {
+  test('CT14 - Verificar cálculos do checkout @validacao @regressao', async () => {
     console.log('Teste: Cálculos do checkout');
 
     await carrinhoPage.continuarComprando();
@@ -101,7 +105,9 @@ test.describe('Testes de Checkout', () => {
     );
   });
 
-  test('CT15 - Finalizar compra e voltar ao início', async ({ page }) => {
+  test('CT15 - Finalizar compra e voltar ao início @funcional @regressao', async ({
+    page,
+  }) => {
     console.log('Teste: Finalizar e voltar');
 
     await carrinhoPage.irParaCheckout();

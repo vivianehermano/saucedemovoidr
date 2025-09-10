@@ -64,20 +64,20 @@ export class Logger {
   }
 
   testeInicio(nomeDoTeste) {
-    this.info(`🎯 TESTE INICIADO: ${nomeDoTeste}`);
+    this.info(`TESTE INICIADO: ${nomeDoTeste}`);
   }
 
   testeFim(nomeDoTeste, sucesso = true) {
-    const status = sucesso ? '✅ PASSOU' : '❌ FALHOU';
-    this.info(`🏁 TESTE FINALIZADO: ${nomeDoTeste} - ${status}`);
+    const status = sucesso ? '[PASS]' : '[FAIL]';
+    this.info(`TESTE FINALIZADO: ${nomeDoTeste} - ${status}`);
   }
 
   acao(descricao, dados = {}) {
-    this.info(`🔧 AÇÃO: ${descricao}`, dados);
+    this.info(`AÇÃO: ${descricao}`, dados);
   }
 
   verificacao(descricao, resultado = true) {
-    const status = resultado ? '✅' : '❌';
+    const status = resultado ? '[PASS]' : '[FAIL]';
     this.info(`${status} VERIFICAÇÃO: ${descricao}`);
   }
 }

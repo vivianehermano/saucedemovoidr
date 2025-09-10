@@ -12,7 +12,9 @@ test.describe('Testes de Logout', () => {
     produtosPage = new ProdutosPage(page);
   });
 
-  test('CT_LOGOUT_01 - Logout com sucesso', async ({ page }) => {
+  test('CT_LOGOUT_01 - Logout com sucesso @critico @smoke', async ({
+    page,
+  }) => {
     console.log('Teste: Logout do sistema');
 
     await loginPage.navegarParaLogin();
@@ -31,8 +33,10 @@ test.describe('Testes de Logout', () => {
     console.log('Logout realizado com sucesso');
   });
 
-  test('CT_LOGOUT_02 - Tentativa de acesso após logout', async ({ page }) => {
-    console.log('Teste: Acesso após logout');
+  test('CT_LOGOUT_02 - Tentativa de acesso após logout @seguranca @critico', async ({
+    page,
+  }) => {
+    console.log(' Teste: Acesso após logout');
 
     await loginPage.navegarParaLogin();
     await loginPage.fazerLogin(usuarios.valido.nome, usuarios.valido.senha);
@@ -48,7 +52,7 @@ test.describe('Testes de Logout', () => {
     console.log('Segurança após logout funcionando');
   });
 
-  test('CT_LOGOUT_03 - Logout preserva carrinho vazio', async () => {
+  test('CT_LOGOUT_03 - Logout preserva carrinho vazio @funcional @regressao', async () => {
     console.log('Teste: Estado do carrinho após logout');
 
     await loginPage.navegarParaLogin();

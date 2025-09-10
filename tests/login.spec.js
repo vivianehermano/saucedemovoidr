@@ -13,7 +13,9 @@ test.describe('Testes de Login', () => {
     await loginPage.navegarParaLogin();
   });
 
-  test('CT01 - Login com credenciais válidas', async ({ page }) => {
+  test('CT01 - Login com credenciais válidas @critico @smoke', async ({
+    page,
+  }) => {
     console.log('Teste: Login válido');
 
     await loginPage.fazerLogin(usuarios.valido.nome, usuarios.valido.senha);
@@ -25,7 +27,7 @@ test.describe('Testes de Login', () => {
     console.log('Login realizado com sucesso');
   });
 
-  test('CT02 - Login com credenciais inválidas', async () => {
+  test('CT02 - Login com credenciais inválidas @validacao @regressao', async () => {
     console.log('Teste: Login inválido');
 
     await loginPage.fazerLogin(usuarios.invalido.nome, usuarios.invalido.senha);
@@ -39,7 +41,7 @@ test.describe('Testes de Login', () => {
     console.log('Mensagem de erro exibida corretamente');
   });
 
-  test('CT03 - Login com usuário bloqueado', async () => {
+  test('CT03 - Login com usuário bloqueado @seguranca @critico', async () => {
     console.log('Teste: Usuário bloqueado');
 
     await loginPage.fazerLogin(
@@ -53,7 +55,7 @@ test.describe('Testes de Login', () => {
     console.log('Usuário bloqueado tratado corretamente');
   });
 
-  test('CT04 - Login sem usuário', async () => {
+  test('CT04 - Login sem usuário @validacao @smoke', async () => {
     console.log('Teste: Login sem usuário');
 
     await loginPage.fazerLogin('', usuarios.valido.senha);
@@ -67,7 +69,7 @@ test.describe('Testes de Login', () => {
     console.log('Mensagem de erro exibida corretamente');
   });
 
-  test('CT05 - Login sem senha', async () => {
+  test('CT05 - Login sem senha @validacao @smoke', async () => {
     console.log('Teste: Login sem senha');
 
     await loginPage.fazerLogin(usuarios.valido.nome, '');
@@ -81,7 +83,7 @@ test.describe('Testes de Login', () => {
     console.log('Mensagem de erro exibida corretamente');
   });
 
-  test('CT06 - Login sem usuário e senha', async () => {
+  test('CT06 - Login sem usuário e senha @validacao @regressao', async () => {
     console.log('Teste: Login sem usuário e senha');
 
     await loginPage.fazerLogin('', '');
@@ -94,12 +96,13 @@ test.describe('Testes de Login', () => {
     console.log('Mensagem de erro exibida corretamente');
   });
 
-  test('CT07 - Tentativa de login sem usuário e sem senha (vazio)', async () => {
+  test('CT07 - Tentativa de login vazio @validacao', async () => {
     console.log('Teste: Tentativa de login vazio');
 
     await loginPage.fazerLogin('', '');
     const temErro = await loginPage.temMensagemErro();
     expect(temErro).toBe(true);
+
     console.log('Tentativa de login executada');
   });
 });

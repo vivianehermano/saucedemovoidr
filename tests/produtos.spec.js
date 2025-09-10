@@ -18,7 +18,7 @@ test.describe('Testes de Produtos', () => {
     expect(estaNaPagina).toBe(true);
   });
 
-  test('CT04 - Visualizar lista de produtos', async () => {
+  test('CT04 - Visualizar lista de produtos @critico @smoke', async () => {
     console.log('Teste: Visualizar produtos');
 
     const quantidade = await produtosPage.obterQuantidadeProdutos();
@@ -31,7 +31,7 @@ test.describe('Testes de Produtos', () => {
     console.log(`${quantidade} produtos encontrados`);
   });
 
-  test('CT05 - Ordenar produtos por preço menor para maior', async () => {
+  test('CT05 - Ordenar produtos por preço menor para maior @funcional @regressao', async () => {
     console.log('Teste: Ordenação por preço menor');
 
     await produtosPage.ordenarProdutos(ordenacao.precoMenor);
@@ -50,7 +50,7 @@ test.describe('Testes de Produtos', () => {
     console.log(`Preços ordenados (menor→maior): $${precos.join(', $')}`);
   });
 
-  test('CT06 - Adicionar produto ao carrinho', async () => {
+  test('CT06 - Adicionar produto ao carrinho @critico @smoke', async () => {
     console.log('Teste: Adicionar ao carrinho');
 
     await produtosPage.adicionarProdutoAoCarrinho(produtos.mochila);
@@ -61,7 +61,7 @@ test.describe('Testes de Produtos', () => {
     console.log('Produto adicionado ao carrinho');
   });
 
-  test('CT07 - Remover produto do carrinho', async () => {
+  test('CT07 - Remover produto do carrinho @funcional @regressao', async () => {
     console.log('Teste: Remover do carrinho');
 
     await produtosPage.adicionarProdutoAoCarrinho(produtos.mochila);
@@ -73,7 +73,7 @@ test.describe('Testes de Produtos', () => {
     console.log('Produto removido do carrinho');
   });
 
-  test('CT08 - Ordenar produtos por nome A-Z', async () => {
+  test('CT08 - Ordenar produtos por nome A-Z @funcional @smoke', async () => {
     console.log('Teste: Ordenação por nome A-Z');
 
     await produtosPage.ordenarProdutos(ordenacao.nomeAZ);
@@ -86,7 +86,7 @@ test.describe('Testes de Produtos', () => {
     console.log(`Produtos ordenados A-Z: ${nomes.slice(0, 3).join(', ')}...`);
   });
 
-  test('CT09 - Ordenar produtos por nome Z-A', async () => {
+  test('CT09 - Ordenar produtos por nome Z-A @funcional @regressao', async () => {
     console.log('Teste: Ordenação por nome Z-A');
 
     await produtosPage.ordenarProdutos(ordenacao.nomeZA);
@@ -99,7 +99,7 @@ test.describe('Testes de Produtos', () => {
     console.log(`Produtos ordenados Z-A: ${nomes.slice(0, 3).join(', ')}...`);
   });
 
-  test('CT10 - Ordenar produtos por preço maior para menor', async () => {
+  test('CT10 - Ordenar produtos por preço maior para menor @funcional @regressao', async () => {
     console.log('Teste: Ordenação por preço maior');
 
     await produtosPage.ordenarProdutos(ordenacao.precoMaior);
@@ -118,7 +118,7 @@ test.describe('Testes de Produtos', () => {
     console.log(`Preços ordenados (maior→menor): $${precos.join(', $')}`);
   });
 
-  test('CT11 - Verificar se filtro mantém funcionalidade do carrinho', async () => {
+  test('CT11 - Verificar se filtro mantém funcionalidade do carrinho @funcional @regressao', async () => {
     console.log('Teste: Filtro + Carrinho');
 
     await produtosPage.ordenarProdutos(ordenacao.precoMaior);
@@ -137,7 +137,7 @@ test.describe('Testes de Produtos', () => {
     console.log('Carrinho mantido após mudança de filtro');
   });
 
-  test('CT12 - Testar todos os filtros sequencialmente', async () => {
+  test('CT12 - Testar todos os filtros sequencialmente @completo @regressao', async () => {
     console.log('Teste: Todos os filtros em sequência');
 
     const filtros = [
@@ -148,13 +148,13 @@ test.describe('Testes de Produtos', () => {
     ];
 
     for (const filtro of filtros) {
-      console.log(`Testando filtro: ${filtro.nome}`);
+      console.log(` Testando filtro: ${filtro.nome}`);
 
       await produtosPage.ordenarProdutos(filtro.tipo);
 
       const quantidade = await produtosPage.obterQuantidadeProdutos();
       expect(quantidade).toBe(6);
-      console.log(` - ${quantidade} produtos exibidos corretamente`);
+      console.log(`    ${quantidade} produtos exibidos corretamente`);
 
       await produtosPage.aguardar(500);
     }

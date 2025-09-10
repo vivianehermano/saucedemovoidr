@@ -8,8 +8,10 @@ test.describe('Testes de Segurança', () => {
     loginPage = new LoginPage(page);
   });
 
-  test('CT_SEC_01 - Acesso direto à produtos sem login', async ({ page }) => {
-    console.log('Teste: Acesso direto sem autenticação');
+  test('CT_SEC_01 - Acesso direto à produtos sem login @seguranca @critico', async ({
+    page,
+  }) => {
+    console.log(' Teste: Acesso direto sem autenticação');
 
     await page.goto('/inventory.html');
     await expect(page).toHaveURL(/.*saucedemo.com\/?$/);
@@ -20,8 +22,10 @@ test.describe('Testes de Segurança', () => {
     console.log('Proteção de acesso funcionando');
   });
 
-  test('CT_SEC_02 - Acesso direto ao carrinho sem login', async ({ page }) => {
-    console.log('Teste: Acesso direto ao carrinho');
+  test('CT_SEC_02 - Acesso direto ao carrinho sem login @seguranca @critico', async ({
+    page,
+  }) => {
+    console.log(' Teste: Acesso direto ao carrinho');
 
     await page.goto('/cart.html');
 
@@ -33,8 +37,10 @@ test.describe('Testes de Segurança', () => {
     console.log('Carrinho protegido contra acesso direto');
   });
 
-  test('CT_SEC_03 - Acesso direto ao checkout sem login', async ({ page }) => {
-    console.log('Teste: Acesso direto ao checkout');
+  test('CT_SEC_03 - Acesso direto ao checkout sem login @seguranca @critico', async ({
+    page,
+  }) => {
+    console.log(' Teste: Acesso direto ao checkout');
 
     await page.goto('/checkout-step-one.html');
 
@@ -46,8 +52,10 @@ test.describe('Testes de Segurança', () => {
     console.log('Checkout protegido contra acesso direto');
   });
 
-  test('CT_SEC_04 - Caracteres especiais no login', async ({ page }) => {
-    console.log('Teste: Caracteres especiais');
+  test('CT_SEC_04 - Caracteres especiais no login @seguranca @validacao', async ({
+    page,
+  }) => {
+    console.log(' Teste: Caracteres especiais');
 
     await loginPage.navegarParaLogin();
 
@@ -62,8 +70,8 @@ test.describe('Testes de Segurança', () => {
     console.log('Caracteres especiais tratados corretamente');
   });
 
-  test('CT_SEC_05 - Login com campos muito longos', async () => {
-    console.log('Teste: Campos extremamente longos');
+  test('CT_SEC_05 - Login com campos muito longos @seguranca @validacao', async () => {
+    console.log(' Teste: Campos extremamente longos');
 
     await loginPage.navegarParaLogin();
 
