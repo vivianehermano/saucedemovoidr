@@ -23,13 +23,13 @@ jobs:
     steps:
       - name: Verificar se saucedemo.com está acessível
         run: |
-          echo "🔍 Verificando se o site está acessível..."
+          echo " Verificando se o site está acessível..."
           curl -f -s -o /dev/null https://www.saucedemo.com || exit 1
-          echo "✅ Site acessível!"
+          echo "Site acessível!"
 
   # Job principal de testes
   test:
-    name: 🧪 Testes E2E
+    name: Testes E2E
     runs-on: ubuntu-latest
     timeout-minutes: 30
     needs: health-check
@@ -40,31 +40,31 @@ jobs:
         test-suite:
           - name: 'smoke'
             command: 'test:smoke'
-            browser: 'chromium'
+            browser: 'chrome'
           - name: 'critico'
             command: 'test:critico'
-            browser: 'chromium'
+            browser: 'chrome'
           - name: 'seguranca'
             command: 'test:seguranca'
-            browser: 'chromium'
+            browser: 'chrome'
           - name: 'funcional'
             command: 'test:funcional'
             browser: 'firefox'
           - name: 'regressao'
             command: 'test:regressao'
-            browser: 'chromium'
+            browser: 'chrome'
 
     steps:
-      - name: 📥 Checkout do código
+      - name: Checkout do código
         uses: actions/checkout@v4
 
-      - name: 📦 Setup Node.js ${{ env.NODE_VERSION }}
+      - name: Setup Node.js ${{ env.NODE_VERSION }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
 
-      - name: 📋 Cache das dependências
+      - name: Cache das dependências
         uses: actions/cache@v4
         with:
           path: ~/.npm
@@ -72,10 +72,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: 🔧 Instalar dependências
+      - name: Instalar dependências
         run: npm ci
 
-      - name: 🎭 Cache dos browsers Playwright
+      - name: Cache dos browsers Playwright
         uses: actions/cache@v4
         with:
           path: ~/.cache/ms-playwright
@@ -83,22 +83,22 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-playwright-
 
-      - name: 🌐 Instalar browsers Playwright
+      - name: Instalar browsers Playwright
         run: npx playwright install --with-deps
 
-      - name: 🔍 Executar linting
+      - name: Executar linting
         run: npm run lint
 
-      - name: 📐 Verificar formatação
+      - name: Verificar formatação
         run: npm run format:check
 
-      - name: 🧪 Executar testes - ${{ matrix.test-suite.name }}
+      - name: Executar testes - ${{ matrix.test-suite.name }}
         run: npm run ${{ matrix.test-suite.command }} -- --project=${{ matrix.test-suite.browser }}
         env:
           CI: true
           PLAYWRIGHT_BROWSERS_PATH: ~/.cache/ms-playwright
 
-      - name: 📊 Upload dos resultados - ${{ matrix.test-suite.name }}
+      - name: Upload dos resultados - ${{ matrix.test-suite.name }}
         uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -108,7 +108,7 @@ jobs:
             test-results/
           retention-days: 30
 
-      - name: 📸 Upload screenshots (apenas em falhas)
+      - name: Upload screenshots (apenas em falhas)
         uses: actions/upload-artifact@v4
         if: failure()
         with:
@@ -120,50 +120,50 @@ jobs:
 
   # Job para executar testes completos
   test-complete:
-    name: 🚀 Testes Completos
+    name: Testes Completos
     runs-on: ubuntu-latest
     timeout-minutes: 45
     needs: health-check
     if: github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/main'
 
     steps:
-      - name: 📥 Checkout do código
+      - name: Checkout do código
         uses: actions/checkout@v4
 
-      - name: 📦 Setup Node.js ${{ env.NODE_VERSION }}
+      - name: Setup Node.js ${{ env.NODE_VERSION }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
 
-      - name: 📋 Cache das dependências
+      - name: Cache das dependências
         uses: actions/cache@v4
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
-      - name: 🔧 Instalar dependências
+      - name: Instalar dependências
         run: npm ci
 
-      - name: 🎭 Cache dos browsers Playwright
+      - name: Cache dos browsers Playwright
         uses: actions/cache@v4
         with:
           path: ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json') }}
 
-      - name: 🌐 Instalar browsers Playwright (todos)
+      - name: Instalar browsers Playwright (todos)
         run: npx playwright install --with-deps
 
-      - name: 🔍 Executar linting
+      - name: Executar linting
         run: npm run lint
 
-      - name: 🧪 Executar todos os testes
+      - name: Executar todos os testes
         run: npm run test:ci
         env:
           CI: true
           PLAYWRIGHT_BROWSERS_PATH: ~/.cache/ms-playwright
 
-      - name: 📊 Upload dos resultados completos
+      - name: Upload dos resultados completos
         uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -183,47 +183,47 @@ jobs:
     if: github.event_name == 'pull_request'
 
     steps:
-      - name: 📥 Checkout do código
+      - name: Checkout do código
         uses: actions/checkout@v4
 
-      - name: 📦 Setup Node.js ${{ env.NODE_VERSION }}
+      - name: Setup Node.js ${{ env.NODE_VERSION }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
 
-      - name: 🔧 Instalar dependências
+      - name: Instalar dependências
         run: npm ci
 
-      - name: 🌐 Instalar browser Chromium
-        run: npx playwright install chromium --with-deps
+      - name: Instalar browser chrome
+        run: npx playwright install chrome --with-deps
 
-      - name: 🔍 Executar linting
+      - name: Executar linting
         run: npm run lint
 
-      - name: 📐 Verificar formatação
+      - name: Verificar formatação
         run: npm run format:check
 
-      - name: 🧪 Executar testes críticos
+      - name: Executar testes críticos
         run: npm run test:critico -- --project=chrome
         env:
           CI: true
 
-      - name: 🧪 Executar smoke tests
+      - name: Executar smoke tests
         run: npm run test:smoke -- --project=chrome
         env:
           CI: true
 
   # Job para notificação em caso de falha
   notify:
-    name: 📢 Notificação
+    name: Notificação
     runs-on: ubuntu-latest
     needs: [test, test-complete, quick-validation]
     if: always() && (needs.test.result == 'failure' || needs.test-complete.result == 'failure' || needs.quick-validation.result == 'failure')
     steps:
-      - name: 📧 Notificar falha
+      - name: Notificar falha
         run: |
-          echo "🚨 Alguns testes falharam!"
+          echo " Alguns testes falharam!"
           echo "Verifique os artefatos e logs para mais detalhes."
           echo "Run ID: ${{ github.run_id }}"
           echo "Commit: ${{ github.sha }}"
